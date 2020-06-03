@@ -37,11 +37,6 @@ From a clone
 
 If you clone this repository, you will not only be able to build a container with a default or a specific version of OpenCOR, but also a container based on a local archive of OpenCOR:
 
-Archive-based version
----------------------
-
-If you clone this repository and copy to it the Linux archive of a given version of OpenCOR, then a container with that version of OpenCOR can be built using:
-
 ::
 
   docker build -t opencor --build-arg archive=<archive> .
