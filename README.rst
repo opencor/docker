@@ -16,7 +16,7 @@ A container with a specific version of OpenCOR can be built using:
 
 ::
 
-  docker build -t opencor [--build-arg version=<version>] https://github.com/agarny/opencor_docker.git
+  docker build -t opencor --build-arg version=<version> https://github.com/agarny/opencor_docker.git
 
 where ``<version>`` can be either ``x.y[.z]`` (for an official version of OpenCOR) or ``yyyy-mm-dd`` (for a snapshot).
 Note that there is currently no official version of OpenCOR with Python support.
@@ -25,9 +25,15 @@ If you clone this repository and copy to it the Linux archive of a given version
 
 ::
 
-  docker build -t opencor [--build-arg archive=<archive>] .
+  docker build -t opencor --build-arg archive=<archive> .
 
 where ``<archive>`` is the filename of a ``.tar.gz`` file.
+
+Note that a container with a specific version of OpenCOR can also be built from a cloned version of this repository:
+
+::
+
+  docker build -t opencor --build-arg version=<version> .
 
 Run the container
 -----------------
