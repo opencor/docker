@@ -41,3 +41,9 @@ Run the container
 ::
 
   docker run opencor
+
+This will output the membrane potential for the `MRG model <https://models.physiomeproject.org/e/5f7>`_:
+
+::
+
+{"V_m": [-88.5901439103062, -88.59014391030621, -88.59014391030622, ..., -89.42743936614418, -89.42724991998269, -89.42705739292656]}
