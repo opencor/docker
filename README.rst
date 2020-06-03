@@ -1,16 +1,27 @@
+############################
 Docker container for OpenCOR
-============================
+############################
 
-Repository to build a `Docker <https://docker.com/>`_ image to run a simulation of a `CellML <https://www.cellml.org/>`_ or a `SED-ML <https://sed-ml.org/>`_ file using `OpenCOR <https://opencor.ws/>`_ through `Python <https://python.org/>`_.
+Repository to build a `Docker <https://docker.com/>`_ container to run a simulation of a `CellML <https://www.cellml.org/>`_ / `SED-ML <https://sed-ml.org/>`_ file using `OpenCOR <https://opencor.ws/>`_ through `Python <https://python.org/>`_.
 
+*******************
 Build the container
--------------------
+*******************
 
-A container with the ``2020-02-14`` snapshot of OpenCOR can be built using:
+From GitHub
+===========
+
+Default version
+---------------
+
+A default container (with the ``2020-02-14`` snapshot of OpenCOR) can be built using:
 
 ::
 
   docker build -t opencor https://github.com/agarny/opencor_docker.git
+
+Specific version
+----------------
 
 A container with a specific version of OpenCOR can be built using:
 
@@ -21,6 +32,14 @@ A container with a specific version of OpenCOR can be built using:
 where ``<version>`` can be either ``x.y[.z]`` (for an official version of OpenCOR) or ``yyyy-mm-dd`` (for a snapshot).
 Note that there is currently no official version of OpenCOR with Python support.
 
+From a clone
+============
+
+If you clone this repository, you will not only be able to build a container with a default or a specific version of OpenCOR, but also a container based on a local archive of OpenCOR:
+
+Archive-based version
+---------------------
+
 If you clone this repository and copy to it the Linux archive of a given version of OpenCOR, then a container with that version of OpenCOR can be built using:
 
 ::
@@ -29,14 +48,9 @@ If you clone this repository and copy to it the Linux archive of a given version
 
 where ``<archive>`` is the filename of a ``.tar.gz`` file.
 
-Note that a container with a specific version of OpenCOR can also be built from a cloned version of this repository:
-
-::
-
-  docker build -t opencor --build-arg version=<version> .
-
+*****************
 Run the container
------------------
+*****************
 
 ::
 
