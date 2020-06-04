@@ -3,25 +3,24 @@ FROM ubuntu:18.04
 ARG archive
 ARG version=2020-02-14
 
-ENV BINDIR /usr/local/bin
-ENV OPENCORDIR /home/opencor
+ENV HOMEDIR /home/opencor
+ENV OPENCORDIR $HOMEDIR/OpenCOR
 
-WORKDIR $OPENCORDIR
+WORKDIR $HOMEDIR
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get -qq update && apt-get install -y \
     curl \
-    dos2unix \
     libpulse-mainloop-glib0 \
     libx11-6 \
     libxext6 \
     libxslt1.1 \
     sqlite3
 
-COPY . $OPENCORDIR
+COPY . $HOMEDIR
 
-RUN mkdir OpenCOR && \
-    cd OpenCOR && \
+RUN mkdir $OPENCORDIR && \
+    cd $OPENCORDIR && \
     if [[ -n $archive ]]; then \
         tar --strip-components=1 -xzf ../$archive && \
         rm ../$archive ; \
@@ -34,7 +33,6 @@ RUN mkdir OpenCOR && \
         curl $URL | tar --strip-components=1 -xz ; \
     fi
 
-ENTRYPOINT ["entrypoint"]
+ENV PATH "$OPENCORDIR:$PATH"
 
-COPY ./entrypoint $BINDIR
-RUN dos2unix -q $BINDIR/entrypoint
+ENTRYPOINT ["pythonshell", "opencor.py"]
