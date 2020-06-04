@@ -20,9 +20,10 @@ def main(url, config):
 
 
 def usage():
-    print('Usage: docker run opencor <url> <config>')
-    print('  where <url> is the URL to a CellML / SED-ML file')
-    print('e.g. https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7'
+    print('Usage: docker run opencor <url>')
+    print('   or: docker run -i opencor <url> < <config>')
+    print('  where <url> is the URL of a CellML / SED-ML file')
+    print('    e.g. https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7'
           '/mcintyre_richardson_grill_model_2001.sedml')
     print('  where <config> is the filename of a configuration (JSON) file.')
     print('    e.g. config.json')
@@ -45,16 +46,25 @@ def usage():
 
 
 if __name__ == "__main__":
-    args = sys.argv
+    # Make sure that a URL is provided.
 
-    args.pop(0)
-
-    try:
-        url = args.pop(0)
-        config = args.pop(0)
-    except:
+    if len(sys.argv) != 2:
         usage()
 
-        sys.exit(1)
+        exit(1)
+    else:
+        url = sys.argv[1]
+
+    # Retrieve the config, if any.
+    # Note: the sys.stdin.isatty() test is irrelevant when running this script from a container, but it is needed if we
+    #       want to test this script directly.
+
+    if sys.stdin.isatty():
+        config = None
+    else:
+        try:
+            config = json.load(sys.stdin)
+        except:
+            config = None
 
     main(url, config)
