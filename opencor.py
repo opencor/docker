@@ -4,19 +4,29 @@ import sys
 import opencor as oc
 
 
+def error(message):
+    print('Error:', message)
+
+    exit(1)
+
 def main(url, config):
-    s = oc.open_simulation(url)
+    # Open the simulation.
 
-    s.run()
+    try:
+        s = oc.open_simulation(url)
 
-    r = s.results()
-    voi = r.voi()
-    v_m = r.states()['membrane/V_m']
+        s.run()
 
-    print(json.dumps({
-        voi.uri(): voi.values().tolist(),
-        v_m.uri(): v_m.values().tolist()
-    }, indent=2))
+        r = s.results()
+        voi = r.voi()
+        v_m = r.states()['membrane/V_m']
+
+        print(json.dumps({
+            voi.uri(): voi.values().tolist(),
+            v_m.uri(): v_m.values().tolist()
+        }, indent=2))
+    except:
+        error('the URL does not point to a valid CellML / SED-ML file.')
 
 
 def usage():
