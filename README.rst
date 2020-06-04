@@ -14,7 +14,7 @@ From GitHub
 Default version
 ---------------
 
-A default container (with the ``2020-02-14`` snapshot of OpenCOR) can be built using:
+A default container can be built using:
 
 ::
 
