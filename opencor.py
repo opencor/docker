@@ -8,4 +8,11 @@ if __name__ == "__main__":
 
     s.run()
 
-    print(json.dumps({'V_m': s.results().states()['membrane/V_m'].values().tolist()}))
+    r = s.results()
+    voi = r.voi()
+    v_m = r.states()['membrane/V_m']
+
+    print(json.dumps({
+        voi.uri(): voi.values().tolist(),
+        v_m.uri(): v_m.values().tolist()
+    }, indent=2))
