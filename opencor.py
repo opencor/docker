@@ -9,6 +9,7 @@ def error(message):
 
     exit(1)
 
+
 def main(url, config):
     # Open the simulation.
 
