@@ -78,9 +78,10 @@ def main(url, config):
                                                       'identifier')
             else:
                 error_config('\'' + key + '\' is not a valid key')
-    else:
-        # There is no configuration file, so by default we track all the state variables.
 
+    # If nothing is tracked then track all the state variables.
+
+    if not strack and not rtrack and not ctrack and not atrack:
         for key in rs:
             strack.append(key)
 
@@ -88,8 +89,7 @@ def main(url, config):
 
     s.run()
 
-    # Output the data that we want tracked.
-    # Note: the variable of integration gets always output.
+    # Output the variable of integration and all the data that we want tracked.
 
     output = {rv.uri(): rv.values().tolist()}
 
