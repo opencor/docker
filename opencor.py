@@ -4,14 +4,14 @@ import sys
 import opencor as oc
 
 
-def error(message):
-    print('Error:', message)
+def error(msg):
+    print('Error: ', msg, '.', sep='')
 
     exit(1)
 
 
-def error_config(message):
-    error('the config file is malformed (' + message + ')')
+def error_config(msg):
+    error('the configuration file is invalid (' + msg + ')')
 
 
 def main(url, config):
@@ -20,9 +20,21 @@ def main(url, config):
     try:
         s = oc.open_simulation(url)
     except:
-        error('the URL does not point to a valid CellML / SED-ML file.')
+        error('the URL does not point to a valid CellML / SED-ML file')
 
     # Configure the simulation.
+
+    r = s.results()
+    rv = r.voi()
+    rs = r.states()
+    rr = r.rates()
+    rc = r.constants()
+    ra = r.algebraic()
+
+    strack = []
+    rtrack = []
+    ctrack = []
+    atrack = []
 
     if config is not None:
         d = s.data()
@@ -37,20 +49,63 @@ def main(url, config):
                     elif sim_key == 'Point interval':
                         d.set_point_interval(sim_value)
                     else:
-                        error('\'' + sim_key + '\' is not a valid simulation key.')
+                        error_config('\'' + sim_key + '\' is not a valid simulation parameter')
+            elif key == 'parameters':
+                ds = d.states()
+                dc = d.constants()
+
+                for param_key, param_value in value.items():
+                    if param_key in ds:
+                        ds[param_key] = param_value
+                    elif param_key in dc:
+                        dc[param_key] = param_value
+                    else:
+                        error_config('\'' + param_key + '\' is not a valid state or constant variable identifier')
+            elif key == 'output':
+                for out_key in value:
+                    if out_key == rv.uri():
+                        continue  # Since we automatically track the variable of integration.
+                    elif out_key in rs:
+                        strack.append(out_key)
+                    elif out_key in rr:
+                        rtrack.append(out_key)
+                    elif out_key in rc:
+                        ctrack.append(out_key)
+                    elif out_key in ra:
+                        atrack.append(out_key)
+                    else:
+                        error_config('\'' + out_key + '\' is not a valid state, rate, constant or algebraic variable '
+                                                      'identifier')
             else:
-                error('\'' + key + '\' is not a valid key.')
+                error_config('\'' + key + '\' is not a valid key')
+    else:
+        # There is no configuration file, so by default we track all the state variables.
+
+        for key in rs:
+            strack.append(key)
+
+    # Run the simulation.
 
     s.run()
 
-    r = s.results()
-    voi = r.voi()
-    v_m = r.states()['membrane/V_m']
+    # Output the data that we want tracked.
+    # Note: the variable of integration gets always output.
 
-    print(json.dumps({
-        voi.uri(): voi.values().tolist(),
-        v_m.uri(): v_m.values().tolist()
-    }, indent=2))
+    output = {rv.uri(): rv.values().tolist()}
+
+    for key in strack:
+        output[key] = rs[key].values().tolist()
+
+    for key in rtrack:
+        output[key] = rr[key].values().tolist()
+
+    for key in ctrack:
+        output[key] = rc[key].values().tolist()
+
+    for key in atrack:
+        output[key] = ra[key].values().tolist()
+
+    print(json.dumps(output, indent=2))
 
 
 def usage():
