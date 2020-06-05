@@ -145,8 +145,8 @@ if __name__ == "__main__":
         url = sys.argv[1]
 
     # Retrieve the config, if any.
-    # Note: the sys.stdin.isatty() test is irrelevant when running this script from a container, but it is needed if we
-    #       want to test this script directly.
+    # Note: the sys.stdin.isatty() test is irrelevant when running this script from a Docker container, but it is needed
+    #       if we want to test this script directly.
 
     if sys.stdin.isatty():
         config = None
