@@ -56,7 +56,7 @@ Default
 
 where ``<url>`` is the URL of a CellML / SED-ML file, e.g. https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7/mcintyre_richardson_grill_model_2001.sedml.
 
-This will run the CellML / SED-ML file and output the results for the variable of integration and all the state variables in the model, this in a `JSON <https://json.org/>`_ format.
+This will run the CellML / SED-ML file and output the results for the variable of integration, as well as all the state variables in the model, this in a `JSON <https://json.org/>`_ format.
 For example, for the above URL, we get:
 
 ::
@@ -99,8 +99,8 @@ For example, for the above URL, we get:
     ]
   }
 
-With a configuration file
-=========================
+Using a configuration file
+==========================
 
 ::
 
@@ -130,8 +130,8 @@ where ``<config>`` is the filename of a configuration file in the JSON format, e
     ]
   }
 
-The configuration file is used to configure the simulation itself (using the information in the ``simulation`` section, if present), customise the model (using the information in the ``parameters`` section, if present).
-This done, the simulation is run and the variable of integration, as well as all the variables listed in the ``output`` section (if present otherwise all the state variables), are output. For example, for https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7/mcintyre_richardson_grill_model_2001.sedml and the above configuration file, we get:
+The configuration file is used to configure the simulation (using the information in the ``simulation`` section, if present), customise the initial state of the model (using the information in the ``parameters`` section, if present).
+The simulation is then run and the variable of integration, as well as all the variables listed in the ``output`` section (if present otherwise all the state variables), are output. For example, for https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7/mcintyre_richardson_grill_model_2001.sedml and the above configuration file, we get:
 
 ::
 
@@ -173,4 +173,4 @@ This done, the simulation is run and the variable of integration, as well as all
     ]
   }
 
-Note that rate variables have an identifier that ends with ``/prime``, e.g. ``membrane/V_m/prime`` is the rate variable for the ``membrane/V_m`` state variable.
+Note that rate variables have an identifier that ends with ``/prime``, e.g. ``membrane/V_m/prime`` refers to the rate variable for the ``membrane/V_m`` state variable.
