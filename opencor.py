@@ -10,6 +10,10 @@ def error(message):
     exit(1)
 
 
+def error_config(message):
+    error('the config file is malformed (' + message + ')')
+
+
 def main(url, config):
     # Open the simulation.
 
@@ -17,6 +21,25 @@ def main(url, config):
         s = oc.open_simulation(url)
     except:
         error('the URL does not point to a valid CellML / SED-ML file.')
+
+    # Configure the simulation.
+
+    if config is not None:
+        d = s.data()
+
+        for key, value in config.items():
+            if key == 'simulation':
+                for sim_key, sim_value in value.items():
+                    if sim_key == 'Starting point':
+                        d.set_starting_point(sim_value)
+                    elif sim_key == 'Ending point':
+                        d.set_ending_point(sim_value)
+                    elif sim_key == 'Point interval':
+                        d.set_point_interval(sim_value)
+                    else:
+                        error('\'' + sim_key + '\' is not a valid simulation key.')
+            else:
+                error('\'' + key + '\' is not a valid key.')
 
     s.run()
 
