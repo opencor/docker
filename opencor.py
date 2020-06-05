@@ -15,19 +15,19 @@ def main(url, config):
 
     try:
         s = oc.open_simulation(url)
-
-        s.run()
-
-        r = s.results()
-        voi = r.voi()
-        v_m = r.states()['membrane/V_m']
-
-        print(json.dumps({
-            voi.uri(): voi.values().tolist(),
-            v_m.uri(): v_m.values().tolist()
-        }, indent=2))
     except:
         error('the URL does not point to a valid CellML / SED-ML file.')
+
+    s.run()
+
+    r = s.results()
+    voi = r.voi()
+    v_m = r.states()['membrane/V_m']
+
+    print(json.dumps({
+        voi.uri(): voi.values().tolist(),
+        v_m.uri(): v_m.values().tolist()
+    }, indent=2))
 
 
 def usage():
