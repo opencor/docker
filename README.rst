@@ -18,7 +18,7 @@ A default container can be built using:
 
 ::
 
-  docker build -t opencor https://github.com/agarny/opencor_docker.git
+  docker build -t opencor https://github.com/opencor/docker.git
 
 Specific version
 ----------------
@@ -27,7 +27,7 @@ A container with a specific version of OpenCOR can be built using:
 
 ::
 
-  docker build -t opencor --build-arg version=<version> https://github.com/agarny/opencor_docker.git
+  docker build -t opencor --build-arg version=<version> https://github.com/opencor/docker.git
 
 where ``<version>`` can be either ``x.y[.z]`` (for an official version of OpenCOR) or ``yyyy-mm-dd`` (for a snapshot).
 Note that there is currently no official version of OpenCOR with Python support.
