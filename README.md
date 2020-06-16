@@ -10,7 +10,8 @@ Pull a prebuilt version of the container
 
     docker pull opencor/opencor[:<tag>]
 
-where `<tag>` is the tag of a specific version of the container.
+where `<tag>` is the tag of a specific version of the container of the form `yyyy-mm-dd`.
+If no tag is provided then the latest version of the container will be pulled.
 
 Build the container yourself
 ----------------------------
