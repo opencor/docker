@@ -115,7 +115,7 @@ where `<config>` is the filename of a configuration file in the JSON format, e.g
       ]
     }
 
-The configuration file is used to configure the simulation (using the information in the `simulation` section, if present), customise the initial state of the model (using the information in the `parameters` section, if present). The simulation is then run and the variable of integration, as well as all the variables listed in the `output` section (if present otherwise all the state variables), are output. For example, for <https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7/mcintyre_richardson_grill_model_2001.sedml> and the above configuration file, we get:
+The configuration file is used to configure the simulation (using the information in the `simulation` section, if present), customise the initial state of the model (using the information in the `parameters` section, if present). The simulation is then run and the variable of integration, as well as all the variables listed in the `output` section (if present otherwise all the state variables), are outputted. For example, for <https://models.physiomeproject.org/workspace/5f5/rawfile/125f548ce204c1d815298d2c8c1d9b774d89e3a7/mcintyre_richardson_grill_model_2001.sedml> and the above configuration file, we get:
 
     {
       "environment/t": [
