@@ -35,7 +35,7 @@ where `<version>` can be either `x.y[.z]` (for an official version of OpenCOR) o
 
 ### From a clone
 
-If you clone this repository, you will not only be able to build a container with a default or a specific version of OpenCOR, but also a container based on a local archive of OpenCOR:
+If you clone the [GitHub repository](https://github.com/opencor/docker), you will not only be able to build a container with a default or a specific version of OpenCOR, but also a container based on a local archive of OpenCOR:
 
     docker build -t opencor --build-arg archive=<archive> .
 
