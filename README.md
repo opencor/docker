@@ -37,9 +37,9 @@ where `<version>` can be either `x.y[.z]` (for an official version of OpenCOR) o
 
 If you clone the [GitHub repository](https://github.com/opencor/docker), you will not only be able to build a container with a default or a specific version of OpenCOR, but also a container based on a local archive of OpenCOR:
 
-    docker build -t opencor --build-arg archive=<archive> .
+    docker build -t opencor --build-arg archive=<archive> <dir>
 
-where `<archive>` is the filename of a `.tar.gz` file.
+where `<archive>` is the filename of a `.tar.gz` file located in `<dir>`, the directory where the GitHub directory was cloned.
 
 Run the container
 -----------------
