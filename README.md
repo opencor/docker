@@ -5,6 +5,8 @@ This [Docker](https://docker.com/) container can be used to run a simulation of 
 
 You can either build the container yourself or use one of the prebuilt versions available on [Docker Hub](https://hub.docker.com/) at <https://hub.docker.com/repository/docker/opencor/opencor>.
 
+A Docker image for using OpenCOR to execute [COMBINE archives](https://combinearchive.org/) with CellML and SED-ML files is available from [BioSimulators](https://biosimulators.org/simulators/opencor).
+
 Pull a prebuilt version of the container
 ----------------------------------------
 
@@ -157,3 +159,24 @@ The configuration file is used to configure the simulation (using the informatio
     }
 
 Note that rate variables have an identifier that ends with `/prime`, e.g. `membrane/V_m/prime` refers to the rate variable for the `membrane/V_m` state variable.
+
+Using the CellML/SED-ML/COMBINE archive Docker image
+----------------------------------------------------
+
+The CellML/SED-ML/COMBINE archive Docker image can be obtained by running
+```
+docker pull ghcr.io/biosimulators/opencor
+```
+
+The image can be used to execute COMBINE archives with CellML and SED-ML files by running
+```
+docker run -it --rm \
+    --mount type=bind,source=/path/to/in/dir,target=/tmp/in \
+    --mount type=bind,source=/path/to/out/dir,target=/tmp/out \
+    ghcr.io/biosimulators/opencor \
+    -i /tmp/in/archive.omex \
+    -o /tmp/out
+```
+
+All reports and plots described in the SED-ML files in the archive will be saved in HDF5 and PDF formats. More information about these formats is available at https://biosimulators.org/conventions/simulation-reports.
+
