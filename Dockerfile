@@ -11,6 +11,7 @@ SHELL ["/bin/bash", "-c"]
 
 RUN apt-get -qq update && apt-get install -y \
     curl \
+    libglapi-mesa \
     libpulse-mainloop-glib0 \
     libx11-6 \
     libxext6 \
