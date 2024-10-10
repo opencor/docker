@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ARG archive
-ARG version=2024-08-23
+ARG version=2024-10-10
 
 ENV HOMEDIR /home/opencor
 ENV OPENCORDIR $HOMEDIR/OpenCOR
