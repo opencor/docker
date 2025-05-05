@@ -8,7 +8,7 @@ on:
 jobs:
   release-docker-image:
     name: Release Docker image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v2
