@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           # See https://docs.docker.com/ci-cd/github-actions/#set-up-a-docker-project
           # for instructions on how to create secrets for Docker Hub.
@@ -21,7 +21,7 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Build and push the Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           tags: opencor/opencor:latest,opencor/opencor:${{ steps.get_version.outputs.VERSION }}
